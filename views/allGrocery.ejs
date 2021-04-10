@@ -1,0 +1,31 @@
+<div class='container'>
+  <table>
+      <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>description</th>
+          <th>Quantity</th>
+      </tr>
+
+      <% if(typeof errors != 'undefined') { %>
+      <% errors.forEach(function(error){%>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <%= error.msg %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% }); %>
+      <% } %>
+      
+  <% for(var i=0;i<items.length;i++){ %>
+      <tr>
+          <td><strong><%= items[i].item %></strong> &nbsp;</td>
+          <td><span><%= items[i].price %> </span>&nbsp;</td>
+          <td><span><%= items[i].description %></span> &nbsp;</td>
+          <td><span><%= items[i].quantity %></span> &nbsp;</td>
+      </tr>
+  <%} %>
+  </table>
+</section>
+</div>
