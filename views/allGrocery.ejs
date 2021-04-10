@@ -1,10 +1,15 @@
+
+<h1 class="text-center mb-3"> ALL GROCERY AVAILABLE  </h1>
 <div class='container'>
-  <table>
+
+  <table class='table'>
       <tr>
+          <th> ID </th>
           <th>Name</th>
           <th>Price</th>
           <th>description</th>
-          <th>Quantity</th>
+          <th>Available Quantity</th>
+          <th> order Qunatity </th>
       </tr>
 
       <% if(typeof errors != 'undefined') { %>
@@ -17,13 +22,18 @@
         </div>
       <% }); %>
       <% } %>
-      
+
   <% for(var i=0;i<items.length;i++){ %>
       <tr>
-          <td><strong><%= items[i].item %></strong> &nbsp;</td>
+          <td><strong><%= items[i].id %></strong> &nbsp;</td>
+          <td><span><%= items[i].name %> </span>&nbsp;</td>
           <td><span><%= items[i].price %> </span>&nbsp;</td>
           <td><span><%= items[i].description %></span> &nbsp;</td>
           <td><span><%= items[i].quantity %></span> &nbsp;</td>
+          <td><span><input  type="number" id="orderQuant" name="orderQuant"  class="form-control"  placeholder="type here" /> &nbsp;</td>
+          <form action="/users/order" method="POST">
+            <td><span><button type='submit' class="btn btn-info ">ORDER</button></span> &nbsp;</td>
+          </form>
       </tr>
   <%} %>
   </table>

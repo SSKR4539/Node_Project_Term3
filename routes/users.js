@@ -6,6 +6,7 @@ const passport = require('passport');
 const User = require('../models/User');
 const Grocery = require('../models/grocery');
 
+////////////////////////////////////////////////////////////////////////////////
 
 // Login Page
 router.get('/login',  (req, res) => res.render('login'));
@@ -13,6 +14,7 @@ router.get('/login',  (req, res) => res.render('login'));
 // Register Page
 router.get('/register',  (req, res) => res.render('register'));
 
+////////////////////////////////////////////////////////////////////////////////
 
 //Registeration form POST method
 router.post('/register',(req,res)=>{
@@ -52,6 +54,11 @@ router.post('/register',(req,res)=>{
 }
 });
 
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+//login post after authentication
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/dashboard',
@@ -60,6 +67,9 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+////////////////////////////////////////////////////////////////////////////////
+
+
 // Logout
 router.get('/logout', (req, res) => {
   req.logout();
@@ -67,12 +77,12 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
-
+///////////////////////////////////////////////////////////////////////////////
 
 //getAll from Grocery
 router.get("/allGrocery",  (req, res) => {
   let errors = [];
-	const grocery = Grocery.find().then(item=>{
+	Grocery.find().then(item=>{
     if(item){
       console.log('success')
       res.render('allGrocery.ejs',{items:item})
@@ -86,37 +96,41 @@ router.get("/allGrocery",  (req, res) => {
 });
 
 
-// //post to Grocery
-// router.post("/grocery", async (req, res) => {
-//   const { id,item,price,description,quantity } = req.body;
-//   let errors = [];
-//   if (!id  || !item || !price || !description || !quantity) {
-//   errors.push({ msg: 'All fields Required' });
-//   }
-//   else{
-//     Grocery.findOne({id:id}).then(item=>{
-//     if(item){
-//       errors.push({ msg: 'Email already exists' });
-//       res.render('grocery', {errors,name, email,password,password2 });
-//     }
-//     else{
-//
-//     const newGrocery = new Grocery({ id,item,price,description,quantity});
-//     newGrocery.save()
-//     .then(user=>{
-//       req.flash('success_msg', 'You are now registered and can log in');
-//       res.redirect('/users/login')})
-//     .catch(err=>console.log(err));
-//   }
-//
-// 	const post = new Post({
-// 		title: req.body.title,
-// 		content: req.body.content,
-// 	})
-// 	await post.save()
-// 	res.send(post)
-// })
-//
+////////////////////////////////////////////////////////////////////////////////
+
+//get method for addGrocery
+router.get('/addGrocery',  (req, res) => res.render('addGrocery'));
+
+// post to Grocery
+router.post("/addGrocery", async (req, res) => {
+  const { id,name,price,description,quantity } = req.body;
+  let errors = [];
+  if (!id  || !name || !price || !description || !quantity) {
+  errors.push({ msg: 'All fields Required' });
+  }
+  else{
+    Grocery.findOne({id:id}).then(item=>{
+    if(item){
+      errors.push({ msg: 'ID already exists' });
+      res.render('addGrocery', {errors,id, name,price,description,quantity });
+    }
+    else{
+    const newGrocery = new Grocery({ id,name,price,description,quantity});
+    newGrocery.save()
+    .then(user=>{
+      req.flash('success_msg', 'Product Added');
+      res.redirect('/users/allGrocery')
+    })
+    .catch(err=>console.log(err));
+  }
+})
+}
+
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 
