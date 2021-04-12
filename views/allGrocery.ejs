@@ -4,12 +4,7 @@
 
   <table class='table'>
       <tr>
-          <th> ID </th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>description</th>
-          <th>Available Quantity</th>
-          <th> order Qunatity </th>
+          <th> ID </th>      <th>Name</th>     <th>Price</th>    <th>description</th>    <th>Available Quantity</th>
       </tr>
 
       <% if(typeof errors != 'undefined') { %>
@@ -25,17 +20,16 @@
 
   <% for(var i=0;i<items.length;i++){ %>
       <tr>
-          <td><strong><%= items[i].id %></strong> &nbsp;</td>
+          <td id="id" name="id"><strong><%= items[i].id %></strong> &nbsp;</td>
           <td><span><%= items[i].name %> </span>&nbsp;</td>
           <td><span><%= items[i].price %> </span>&nbsp;</td>
           <td><span><%= items[i].description %></span> &nbsp;</td>
           <td><span><%= items[i].quantity %></span> &nbsp;</td>
-          <td><span><input  type="number" id="orderQuant" name="orderQuant"  class="form-control"  placeholder="type here" /> &nbsp;</td>
-          <form action="/users/order" method="POST">
-            <td><span><button type='submit' class="btn btn-info ">ORDER</button></span> &nbsp;</td>
-          </form>
       </tr>
   <%} %>
   </table>
-</section>
+</div>
+
+<div>
+  <a href="/users/logout" class="btn btn-primary ">Logout</a>
 </div>

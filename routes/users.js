@@ -102,7 +102,7 @@ router.get("/allGrocery",  (req, res) => {
 router.get('/addGrocery',  (req, res) => res.render('addGrocery'));
 
 // post to Grocery
-router.post("/addGrocery", async (req, res) => {
+router.post("/addGrocery", (req, res) => {
   const { id,name,price,description,quantity } = req.body;
   let errors = [];
   if (!id  || !name || !price || !description || !quantity) {
@@ -134,6 +134,15 @@ router.post("/addGrocery", async (req, res) => {
 
 
 
+// post to Grocery
+router.post("/order",  (req, res) => {
+  const { id, quantityorderd } = req.body;
+  console.log(req.body);
 
+});
+
+
+
+////////////////////////////////////////////////////////////////////////////////
 
 module.exports = router;
