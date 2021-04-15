@@ -5,7 +5,7 @@ const passport = require('passport');
 // const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const User = require('../models/User');
 const Grocery = require('../models/grocery');
-
+const Contact = require('../models/contactus');
 ////////////////////////////////////////////////////////////////////////////////
 
 // Login Page
@@ -131,21 +131,27 @@ router.post("/addGrocery", (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-// post to Grocery
-router.post("/order",  (req, res) => {
-  const { id, quantityorderd } = req.body;
-  console.log(req.body);
-
-});
-
-////////////////////////////////////////////////////////////////////////////////
-
 //get method for addGrocery
 router.get('/contactus',  (req, res) => res.render('contactus'));
 
 
 //post for contact us
-
+router.post("/contactus", (req, res) => {
+  const { name,email,message } = req.body;
+  let errors = [];
+  if (!name || !email || !message ) {
+  errors.push({ msg: 'All fields Required' });
+  }
+  else{
+    const newContactus = new Contact({ name,email,message });
+    newContactus.save()
+    .then(user=>{
+      req.flash('success_msg', 'Message Submited');
+      res.redirect('/users/contactus')
+    })
+    .catch(err=>console.log(err));
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 
