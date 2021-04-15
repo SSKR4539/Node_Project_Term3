@@ -84,7 +84,6 @@ router.get("/allGrocery",  (req, res) => {
   let errors = [];
 	Grocery.find().then(item=>{
     if(item){
-      console.log('success')
       res.render('allGrocery.ejs',{items:item})
     }
     else{
@@ -107,6 +106,7 @@ router.post("/addGrocery", (req, res) => {
   let errors = [];
   if (!id  || !name || !price || !description || !quantity) {
   errors.push({ msg: 'All fields Required' });
+  res.render('addGrocery', {errors });
   }
   else{
     Grocery.findOne({id:id}).then(item=>{
@@ -141,12 +141,13 @@ router.post("/contactus", (req, res) => {
   let errors = [];
   if (!name || !email || !message ) {
   errors.push({ msg: 'All fields Required' });
+  res.render('contactus', {errors });
   }
   else{
     const newContactus = new Contact({ name,email,message });
     newContactus.save()
     .then(user=>{
-      req.flash('success_msg', 'Message Submited');
+      req.flash('success_msg', 'Message Submited, We will contact you shortly');
       res.redirect('/users/contactus')
     })
     .catch(err=>console.log(err));
