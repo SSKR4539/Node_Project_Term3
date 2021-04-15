@@ -131,9 +131,6 @@ router.post("/addGrocery", (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
 // post to Grocery
 router.post("/order",  (req, res) => {
   const { id, quantityorderd } = req.body;
@@ -141,6 +138,13 @@ router.post("/order",  (req, res) => {
 
 });
 
+////////////////////////////////////////////////////////////////////////////////
+
+//get method for addGrocery
+router.get('/contactus',  (req, res) => res.render('contactus'));
+
+
+//post for contact us
 
 
 ////////////////////////////////////////////////////////////////////////////////
